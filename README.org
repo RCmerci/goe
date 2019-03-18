@@ -1,0 +1,27 @@
+* Goe
+minor mode easing golang editing 
+
+** Intro
+
+*** Bindings
+| binding | command                                    | description                         |
+|---------+--------------------------------------------+-------------------------------------|
+| C-1     | goe-describe-current-symbol                | Show doc for current symbol         |
+| C-2     | goe-describe-current-func (only type info) | Show type info for current function |
+| C-3     | goe-describe-current-func                  | Show doc for current function       |
+| ;;todo  |                                            |                                     |
+|---------+--------------------------------------------+-------------------------------------|
+|         | movement bindings                          |                                     |
+|---------+--------------------------------------------+-------------------------------------|
+| ;;todo  |                                            |                                     |
+
+
+
+** Install
+*** via el-get
+#+BEGIN_SRC emacs-lisp
+(:name goe
+       :description "minor mode easing golang editing"
+       :type github
+       :pkgname "RCmerci/goe")
+#+END_SRC    

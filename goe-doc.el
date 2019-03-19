@@ -23,7 +23,6 @@
 
 (require 'lsp-mode)
 
-
 (defvar goe--doc-overlay nil
   "Overlay to display documents.")
 

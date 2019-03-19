@@ -24,6 +24,9 @@
 
 ;;; Code:
 
+(require 'goe-doc)
+(require 'goe-movement)
+
 (defvar goe-mode-map (make-sparse-keymap))
 
 ;;;###autoload

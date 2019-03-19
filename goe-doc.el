@@ -60,7 +60,7 @@ return a plist: (:main \"maininfo\" :other \"something like documents\")"
        ((stringp contents) `(:main ,contents))
        ((sequencep contents)
 	(let ((r '()))
-	  (dolist (i contents)
+	  (seq-doseq (i contents)
 	    (cond
 	     ((stringp i) (plist-put r :other i))
 	     ((and (hash-table-p i)

@@ -3,17 +3,32 @@ minor mode easing golang editing
 
 ** Intro
 *** Bindings
-| binding | command                                    | description                         |
-|---------+--------------------------------------------+-------------------------------------|
-| C-1     | goe-describe-current-symbol                | Show doc for current symbol         |
-| C-2     | goe-describe-current-func (only type info) | Show type info for current function |
-| C-3     | goe-describe-current-func                  | Show doc for current function       |
-| ;;todo  |                                            |                                     |
-|---------+--------------------------------------------+-------------------------------------|
-|         | movement bindings                          |                                     |
-|---------+--------------------------------------------+-------------------------------------|
-| ;;todo  |                                            |                                     |
-
+| binding | command                                    | description                                                            |
+|---------+--------------------------------------------+------------------------------------------------------------------------|
+| C-1     | goe-describe-current-symbol                | Show doc for current symbol                                            |
+| C-2     | goe-describe-current-func (only type info) | Show type info for current function                                    |
+| C-3     | goe-describe-current-func                  | Show doc for current function                                          |
+|---------+--------------------------------------------+------------------------------------------------------------------------|
+|         | movement bindings                          |                                                                        |
+|---------+--------------------------------------------+------------------------------------------------------------------------|
+| [       | goe-backward                               | move backward list or up list                                          |
+| ]       | goe-forward                                | move forward list or up list                                           |
+| {       | goe-lbrace                                 | insert indented brace pair                                             |
+| }       | goe-rbrace                                 | insert square brackets                                                 |
+| n       | goe-special-n                              | move forward list if at special point                                  |
+| p       | goe-special-p                              | move backward list if at special point                                 |
+| f       | goe-special-f                              | move forward one balanced expression if at special point               |
+| b       | goe-special-b                              | move backward one balanced expression if at special point              |
+| d       | goe-special-d                              | goto different side of current balances expression if at special point |
+|---------+--------------------------------------------+------------------------------------------------------------------------|
+|         | goto map                                   |                                                                        |
+|---------+--------------------------------------------+------------------------------------------------------------------------|
+| ; f     | go-goto-function-name                      | goto current function name                                             |
+| ; r     | go-goto-return-values                      | goto current function's return values                                  |
+| ; a     | go-goto-arguments                          | goto current function's arguments                                      |
+| ; d     | go-goto-docstring                          | goto current function's docstring                                      |
+| ; i     | go-goto-imports                            | goto imports                                                           |
+| ; m     | go-goto-method-receiver                    | goto current method's receiver                                         |
 ** Install
 *** via el-get
 el-get recipe:
@@ -29,3 +44,4 @@ el-get recipe:
 ** Requirements
    - lsp-mode
    - go-mode
+   - hydra

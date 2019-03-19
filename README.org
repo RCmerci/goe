@@ -9,7 +9,7 @@ minor mode easing golang editing
 | C-2     | goe-describe-current-func (only type info) | Show type info for current function                                    |
 | C-3     | goe-describe-current-func                  | Show doc for current function                                          |
 |---------+--------------------------------------------+------------------------------------------------------------------------|
-|         | Movement Bindings                          |                                                                        |
+|         | _Movement Bindings_                        |                                                                        |
 |---------+--------------------------------------------+------------------------------------------------------------------------|
 | [       | goe-backward                               | move backward list or up list                                          |
 | ]       | goe-forward                                | move forward list or up list                                           |
@@ -19,9 +19,9 @@ minor mode easing golang editing
 | p       | goe-special-p                              | move backward list if at special point                                 |
 | f       | goe-special-f                              | move forward one balanced expression if at special point               |
 | b       | goe-special-b                              | move backward one balanced expression if at special point              |
-| d       | goe-special-d                              | goto different side of current balances expression if at special point |
+| d       | goe-special-d                              | goto different side of current balanced expression if at special point |
 |---------+--------------------------------------------+------------------------------------------------------------------------|
-|         | Goto Map                                   |                                                                        |
+|         | _Goto Map_                                 |                                                                        |
 |---------+--------------------------------------------+------------------------------------------------------------------------|
 | ; f     | go-goto-function-name                      | goto current function name                                             |
 | ; r     | go-goto-return-values                      | goto current function's return values                                  |

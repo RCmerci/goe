@@ -53,10 +53,8 @@
   (define-key map (kbd "}") 'goe-rbrace)
   (define-key map (kbd "n") 'goe-special-n)
   (define-key map (kbd "p") 'goe-special-p)
-  (define-key map (kbd "f") 'goe-special-f)
-  (define-key map (kbd "b") 'goe-special-b)
   (define-key map (kbd "d") 'goe-special-d)
-
+  (define-key map (kbd "<SPC>") 'goe-space)
   ;; goto specific points
   (define-key map (kbd ";") 'goe--leader-map/body)
 

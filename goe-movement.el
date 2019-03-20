@@ -31,10 +31,12 @@ If ARG non nil, goto its ending."
       (goto-char (nth 8 s))
       (when arg (forward-sexp)))))
 
-(defun goe--in-string ()
+(defmacro goe--in-string-p ()
   "Return nil if not in string"
-  (nth 3 (syntax-ppss))
-  )
+  `(nth 3 (syntax-ppss)))
+
+(defmacro goe--in-comment-p ()
+  `(nth 4 (syntax-ppss)))
 
 (defun goe--goto-current-func ()
   "Move to current function name's point,
@@ -67,7 +69,7 @@ return nil when not in func call place."
 (defun goe-different-side ()
   "Move to another side of (, [, {, \", `"
   (cond
-   ((goe--in-string)
+   ((goe--in-string-p)
     ;; in string, do nothing
     )
    ((looking-at "[([{\"`]")
@@ -86,7 +88,8 @@ return nil when not in func call place."
 Except all above conditions, also need to be not in string"
   (let ((thing (thing-at-point 'symbol)))
     (and
-     (not (goe--in-string))
+     (not (goe--in-string-p))
+     (not (goe--in-comment-p))
      (or
       (= 0 (current-column))
       (and thing (member thing go-mode-keywords))
@@ -118,22 +121,20 @@ Otherwise, just insert char 'n'"
 Otherwise, just insert char 'p'"
 		    (backward-list))
 
-(goe--defun-special goe-special-f ()
-		    "When at special point, move forward sexp.
-Otherwise, just insert char 'f'"
-		    (forward-sexp))
+(defun goe-space ()
+  (interactive)
+  (cond
+   ((or (goe--in-string-p) (goe--in-comment-p)) (self-insert-command 1))
+   ((thing-at-point 'symbol) (self-insert-command 1) (backward-char))
+   (t (self-insert-command 1))))
 
-(goe--defun-special goe-special-b ()
-		    "When at special point, move backward sexp.
-Otherwise, just insert char 'f'"
-		    (backward-sexp))
 
 (defun goe-backward ()
   "Backward list.
 When couldn't move backward list anymore,
 move up list backward."
   (interactive)
-  (if (goe--in-string)
+  (if (goe--in-string-p)
       (goe--exit-string)
     (let ((origin (point)))
       (ignore-errors (forward-list -1))
@@ -145,7 +146,7 @@ move up list backward."
 When couldn't move forward list anymore,
 move up list forward."
   (interactive)
-  (if (goe--in-string)
+  (if (goe--in-string-p)
       (goe--exit-string t)
     (let ((origin (point)))
       (ignore-errors (forward-list))

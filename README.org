@@ -17,9 +17,9 @@ minor mode easing golang editing
 | }       | goe-rbrace                                 | insert square brackets                                                 |
 | n       | goe-special-n                              | move forward list if at special point                                  |
 | p       | goe-special-p                              | move backward list if at special point                                 |
-| f       | goe-special-f                              | move forward one balanced expression if at special point               |
-| b       | goe-special-b                              | move backward one balanced expression if at special point              |
 | d       | goe-special-d                              | goto different side of current balanced expression if at special point |
+| <space> | goe-space                                  | make <space> better                                                    |
+| "       | goe-quote                                  | make <"> better                                                        |
 |---------+--------------------------------------------+------------------------------------------------------------------------|
 |         | _Goto Map_                                 |                                                                        |
 |---------+--------------------------------------------+------------------------------------------------------------------------|
@@ -29,6 +29,9 @@ minor mode easing golang editing
 | ; d     | go-goto-docstring                          | goto current function's docstring                                      |
 | ; i     | go-goto-imports                            | goto imports                                                           |
 | ; m     | go-goto-method-receiver                    | goto current method's receiver                                         |
+|---------+--------------------------------------------+------------------------------------------------------------------------|
+| TODO    | Manage golang imports                      |                                                                        |
+
 ** Install
 *** via el-get
 el-get recipe:

@@ -125,9 +125,22 @@ Otherwise, just insert char 'p'"
   (interactive)
   (cond
    ((or (goe--in-string-p) (goe--in-comment-p)) (self-insert-command 1))
-   ((thing-at-point 'symbol) (self-insert-command 1) (backward-char))
+   ((and (thing-at-point 'symbol)
+	 (looking-at "[([{\"]")) (self-insert-command 1) (backward-char))
    (t (self-insert-command 1))))
 
+
+(defun goe-quote ()
+  (interactive)
+  (cond
+   ((and (goe--in-string-p)
+	 (not (eq ?` (char-after (nth 8 (syntax-ppss))))))
+    (insert "\\\""))
+   ((or (goe--in-string-p)
+	(goe--in-comment-p))
+    (self-insert-command 1))
+   (t (insert "\"\"")
+      (backward-char))))
 
 (defun goe-backward ()
   "Backward list.
@@ -152,17 +165,30 @@ move up list forward."
       (ignore-errors (forward-list))
       (when (= origin (point))
 	(up-list)))))
-
 (defun goe-lbrace ()
-  "Insert brace pair."
+  "Insert brace pair.
+If not a brace pair for a function or for loop or if or else statement,
+don't indent them."
   (interactive)
-  (let ((beg (point)))
-    (insert (with-temp-buffer
-	      (delay-mode-hooks (go-mode))
-	      (insert "{\n\t\n}")
-	      (buffer-string)))
-    (indent-region-line-by-line beg (point))
-    (search-backward "\n")))
+  (if (or (goe--in-string-p)
+	  (goe--in-comment-p))
+      (self-insert-command 1)
+    (let* ((beg (point))
+	   (need-indent (save-excursion
+			  (ignore-errors (backward-list))
+			  (looking-back "\\(\\<func\\>\\|\\<for\\>\\|\\<if\\>\\|\\<else\\>\\).*")))
+	   (need-prefix-space (and need-indent (not (eq (char-after (1- (point))) ? )))))
+      (when need-prefix-space (insert " "))
+      (if need-indent
+	  (progn
+	    (insert (with-temp-buffer
+		      (delay-mode-hooks (go-mode))
+		      (insert "{\n\t\n}")
+		      (buffer-string)))
+	    (indent-region-line-by-line beg (point))
+	    (search-backward "\n"))
+	(insert "{  }")
+	(backward-char 2)))))
 
 (defun goe-rbrace ()
   "Insert square brackets."

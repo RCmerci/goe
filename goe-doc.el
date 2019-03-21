@@ -176,17 +176,18 @@ when OMIT-OTHER-INFO not nil, ignore :other part of plist"
 (defun goe-describe-current-symbol ()
   "Describe current symbol"
   (interactive)
-  (when (goe--clear-doc-overlay (point))
-    (goe--lsp-mix-request (point)
-		    (lambda (info)
-		      (if info
-			  (let* ((plist (goe--extract-lsp-contents info))
-				 (strlist (goe--format-lsp-content plist)))
-			    (when plist
-			      (if (goe--enough-place-p strlist)
-				  (goe--display-doc-overlay (point) strlist)
-				(goe--display-doc-other-buffer plist))
-			      t)))))))
+  (let ((bnd (bounds-of-thing-at-point 'symbol)))
+    (when (goe--clear-doc-overlay (and bnd (car bnd)))
+      (goe--lsp-mix-request (car bnd)
+			    (lambda (info)
+			      (if info
+				  (let* ((plist (goe--extract-lsp-contents info))
+					 (strlist (goe--format-lsp-content plist)))
+				    (when plist
+				      (if (goe--enough-place-p strlist)
+					  (goe--display-doc-overlay (point) strlist)
+					(goe--display-doc-other-buffer plist))
+				      t))))))))
 
 
 (provide 'goe-doc)

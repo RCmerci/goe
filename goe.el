@@ -39,7 +39,24 @@
   :lighter " Goe"
   )
 
-
+(defhydra goe--leader-map (:hint nil :exit t)
+  "
+_f_: goto function name
+_r_: goto return values
+_a_: goto arguments
+_d_: goto docstring
+_i_: goto imports
+_m_: goto method receiver
+_S_: remove unused imports and sort
+"
+  ("f" go-goto-function-name)
+  ("r" go-goto-return-values)
+  ("a" go-goto-arguments)
+  ("d" go-goto-docstring)
+  ("i" go-goto-imports)
+  ("m" go-goto-method-receiver)
+  ("S" goe-sort-and-remove-unused-imports)
+  )
 
 (let ((map goe-mode-map))
   (define-key map (kbd "C-1") 'goe-describe-current-symbol)

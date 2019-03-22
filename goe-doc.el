@@ -84,6 +84,7 @@ when OMIT-OTHER-INFO not nil, ignore :other part of plist"
     (when (and other (not omit-other-info))
       (dolist (i (split-string other "[\r\n]"))
 	(push i strlist))
+      (setq strlist (reverse strlist))
       (setq strlist
 	    (reverse
 	     (split-string
@@ -94,7 +95,6 @@ when OMIT-OTHER-INFO not nil, ignore :other part of plist"
 		   (fill-region 0 (buffer-end 1)))
 		 (buffer-string))) "[\r\n]")))
       (push "" strlist))
-
     (when main
       (dolist (i (split-string (string-trim main) "[\r\n]" t))
 	(when (not (string-empty-p i)) (push i strlist))))

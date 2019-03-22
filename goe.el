@@ -56,6 +56,9 @@
   (define-key map (kbd "d") 'goe-special-d)
   (define-key map (kbd "<SPC>") 'goe-space)
   (define-key map (kbd "\"") 'goe-quote)
+  (define-key map (kbd "(") 'goe-lparenthesis)
+  (define-key map (kbd ")") 'goe-rparenthesis)
+
   ;; goto specific points
   (define-key map (kbd ";") 'goe--leader-map/body)
 

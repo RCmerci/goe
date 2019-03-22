@@ -167,6 +167,7 @@ move up list forward."
       (ignore-errors (forward-list))
       (when (= origin (point))
 	(up-list)))))
+
 (defun goe-lbrace ()
   "Insert brace pair.
 If not a brace pair for a function or for loop or if or else statement,
@@ -174,11 +175,17 @@ don't indent them."
   (interactive)
   (if (or (goe--in-string-p)
 	  (goe--in-comment-p))
-      (self-insert-command 1)
+      (progn
+	(insert "{}")
+	(backward-char))
     (let* ((beg (point))
 	   (need-indent (save-excursion
-			  (ignore-errors (backward-list))
-			  (looking-back "\\(\\<func\\>\\|\\<for\\>\\|\\<if\\>\\|\\<else\\>\\).*")))
+			  (or
+			   (and (> (nth 0 (syntax-ppss)) 0)
+				(eq ?{ (char-after (nth 1 (syntax-ppss))))
+				(looking-back "\\(\\<func\\>\\|\\<for\\>\\|\\<if\\>\\|\\<else\\>\\|\\<switch\\>\\).*"))
+			   (and (ignore-errors (backward-list))
+				(looking-back "\\<func\\>.*")))))
 	   (need-prefix-space (and need-indent (not (eq (char-after (1- (point))) ? )))))
       (when need-prefix-space (insert " "))
       (if need-indent
@@ -197,6 +204,18 @@ don't indent them."
   (interactive)
   (insert "[]")
   (backward-char))
+
+(defun goe-lparenthesis ()
+  "Insert parenthesis pair."
+  (interactive)
+  (insert "()")
+  (backward-char))
+
+(defun goe-rparenthesis ()
+  (interactive)
+  (if (eq ?\) (char-after))
+      (forward-char)
+    (insert ")")))
 
 
 (defhydra goe--leader-map (:hint nil :exit t)

@@ -23,15 +23,6 @@
 
 ;;; Code:
 
-;; (defcustom goe-imports-order 'sto
-;;   "Order of import declarations."
-;;   :type '(choice
-;; 	  (const :tag "stdlib, third-party lib, own lib" sto)
-;; 	  (const :tag "stdlib, own lib, third-party lib" sot)
-;; 	  (const :tag "stdlib, others" so)
-;; 	  (const :tag "none" none))
-;;   :group 'goe)
-
 (defvar-local goe-ownlib-prefix nil "Own lib path prefix")
 
 (defvar goe--stdlib-cache nil)
@@ -109,7 +100,8 @@ e.g.
 
 (defun goe-sort-and-remove-unused-imports (order)
   "Sort all import declarations. And remove unused ones.
-If ARG is non-nil, unused imports will be commented, otherwise, will be deleted."
+If ARG is non-nil, unused imports will be commented, otherwise, will be deleted.
+`goe-ownlib-prefix' defines the prefix of ownlib."
   (interactive (list
 		(let ((order 'none))
 		  (ivy-read "order of imports: " `(,(propertize "none" 'order 'none)

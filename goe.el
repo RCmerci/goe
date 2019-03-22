@@ -28,6 +28,7 @@
 
 (require 'goe-doc)
 (require 'goe-movement)
+(require 'goe-imports)
 
 (defvar goe-mode-map (make-sparse-keymap))
 

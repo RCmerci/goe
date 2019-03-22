@@ -30,7 +30,7 @@ minor mode easing golang editing
 | ; i     | go-goto-imports                            | goto imports                                                           |
 | ; m     | go-goto-method-receiver                    | goto current method's receiver                                         |
 |---------+--------------------------------------------+------------------------------------------------------------------------|
-| TODO    | Manage golang imports                      |                                                                        |
+| ; S     | goe-sort-and-remove-unused-imports         | remove unused imports & sort imports                                   |
 
 ** Install
 *** via el-get

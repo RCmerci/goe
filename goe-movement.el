@@ -113,14 +113,14 @@ run BODY, else just run `self-insert-command'."
 Otherwise, just insert char 'd'"
 		    (goe-different-side))
 
-(goe--defun-special goe-special-n ()
+(goe--defun-special goe-special-N ()
 		    "When at special point, move forward list.
-Otherwise, just insert char 'n'"
+Otherwise, just insert char 'N'"
 		    (forward-list))
 
-(goe--defun-special goe-special-p ()
+(goe--defun-special goe-special-P ()
 		    "When at special point, move backward list.
-Otherwise, just insert char 'p'"
+Otherwise, just insert char 'P'"
 		    (backward-list))
 
 (defun goe-space ()

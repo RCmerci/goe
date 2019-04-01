@@ -40,7 +40,10 @@ If ARG non nil, goto its ending."
 (defmacro goe--in-comment-p ()
   `(nth 4 (syntax-ppss)))
 
-(defun goe--goto-current-func ()
+(defmacro goe--in-string-comment-p ()
+  ` (or (goe--in-string-p) (goe--in-comment-p)))
+
+(defun goe--goto-current-func-call ()
   "Move to current function name's point,
 return its point if success,
 return nil when not in func call place."
@@ -67,6 +70,7 @@ return nil when not in func call place."
 		   nil))))))
     (when p (goto-char p))
     p))
+
 
 (defun goe-different-side ()
   "Move to another side of (, [, {, \", `"
@@ -213,7 +217,10 @@ don't indent them."
 
 (defun goe-rparenthesis ()
   (interactive)
-  (if (eq ?\) (char-after))
+  (if (and (eq ?\) (char-after))
+	   (save-excursion
+	     (ignore-errors (up-list -10))
+	     (ignore-errors (forward-list))))
       (forward-char)
     (insert ")")))
 

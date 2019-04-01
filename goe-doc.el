@@ -157,7 +157,7 @@ when OMIT-OTHER-INFO not nil, ignore :other part of plist"
   "Describe current function."
   (interactive)
   (save-excursion
-    (let* ((current-func (goe--goto-current-func))
+    (let* ((current-func (goe--goto-current-func-call))
 	   (redisplay (goe--clear-doc-overlay current-func)))
       (when redisplay
 	(goe--lsp-mix-request current-func

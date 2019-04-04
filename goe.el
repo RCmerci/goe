@@ -49,6 +49,7 @@ _d_: goto docstring
 _i_: goto imports
 _m_: goto method receiver
 _S_: remove unused imports and sort
+_I_: add imports
 "
   ("f" go-goto-function-name)
   ("r" go-goto-return-values)
@@ -57,7 +58,7 @@ _S_: remove unused imports and sort
   ("i" go-goto-imports)
   ("m" go-goto-method-receiver)
   ("S" goe-sort-and-remove-unused-imports)
-  )
+  ("I" goe-add-imports))
 
 (let ((map goe-mode-map))
   (define-key map (kbd "C-1") 'goe-describe-current-symbol)
@@ -76,7 +77,7 @@ _S_: remove unused imports and sort
   (define-key map (kbd "\"") 'goe-quote)
   (define-key map (kbd "(") 'goe-lparenthesis)
   (define-key map (kbd ")") 'goe-rparenthesis)
-
+  (define-key map (kbd "DEL") 'goe-delete-backward)
   ;; goto specific points
   (define-key map (kbd ";") 'goe--leader-map/body)
 

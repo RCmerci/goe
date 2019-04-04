@@ -27,6 +27,9 @@
 
 (defvar goe--stdlib-cache nil)
 
+(defvar goe--imports-cache nil "imports cache for `goe-add-imports'")
+
+
 (defun goe--stdlib-list ()
   (unless goe--stdlib-cache
     (let ((output (shell-command-to-string "go list -f '{{.Standard}} {{.ImportPath}}' all")))
@@ -129,6 +132,19 @@ If ARG is non-nil, unused imports will be commented, otherwise, will be deleted.
       (goe--delete-import-decl)
       (insert result-imports-str))
     (gofmt)))
+
+
+(defun goe-add-imports (import)
+  "Add IMPORT to list of imports.
+
+resync imports candidates if SYNC is non nil."
+
+  (interactive (list
+		(ivy-read "Package: " (progn (when (or current-prefix-arg (null goe--imports-cache))
+				   (require 'go-mode)
+				   (setq goe--imports-cache (go-packages)))
+				 goe--imports-cache))))
+  (go-import-add nil import))
 
 (provide 'goe-imports)
 ;;; goe-imports.el ends here

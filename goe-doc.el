@@ -43,11 +43,14 @@
 (defun goe--lsp-hover (point cb)
   (goe--lsp-request "textDocument/hover" point cb))
 
-(defun goe--lsp-mix-request (point cb)
+(defun goe--lsp-mix-request (point cb &optional prefer-hover)
   "Make textDocument/hover and textDocument/signatureHelp request.
 hover result have higher priority."
-  (or (goe--lsp-hover point cb)
-      (goe--lsp-signature point cb)))
+  (if prefer-hover
+      (or (goe--lsp-hover point cb)
+	  (goe--lsp-signature point cb))
+    (or (goe--lsp-signature point cb)
+      (goe--lsp-hover point cb))))
 
 (defun goe--extract-lsp-contents (info)
   "Extract infomation from lsp request's response.
@@ -126,13 +129,18 @@ when OMIT-OTHER-INFO not nil, ignore :other part of plist"
     (setq tmp-strlist '())
     (dolist (i strlist)
       (let ((tmpstr (make-string (- max-length (length i)) ?\s)))
-	(push (concat (make-string column ?\s)
-		      (propertize (concat i tmpstr)
-				  'face '(:background "#fff3bc" :foreground "black"))
-		      "\n")
-	      tmp-strlist)))
-    (overlay-put goe--doc-overlay 'display (concat "\n" (string-join tmp-strlist)))
-    (overlay-put goe--doc-overlay 'priority 9999)))
+    	(push (concat (make-string column ?\s)
+    		      (concat i tmpstr)
+    		      "\n")
+    	      tmp-strlist)))
+    (let ((result-str (with-temp-buffer
+			(insert (string-join tmp-strlist))
+			(delay-mode-hooks (markdown-mode))
+			(font-lock-ensure)
+			(concat "\n" (propertize (substring-no-properties (org-copy-visible (point-min) (point-max)))
+						 'face '(:background "#fff3bc" :foreground "black"))))))
+      (overlay-put goe--doc-overlay 'display result-str)
+      (overlay-put goe--doc-overlay 'priority 9999))))
 
 (defun goe--enough-place-p (strlist)
   (<= (length strlist) (* (/ (window-body-height) 3) 2)))
@@ -169,7 +177,8 @@ when OMIT-OTHER-INFO not nil, ignore :other part of plist"
 				      (if (goe--enough-place-p strlist)
 					  (goe--display-doc-overlay current-func strlist)
 					(goe--display-doc-other-buffer plist))
-				      t)))))))))
+				      t))))
+			      (not only-func-type))))))
 
 
 
@@ -187,7 +196,8 @@ when OMIT-OTHER-INFO not nil, ignore :other part of plist"
 				      (if (goe--enough-place-p strlist)
 					  (goe--display-doc-overlay (point) strlist)
 					(goe--display-doc-other-buffer plist))
-				      t))))))))
+				      t))))
+			    t))))
 
 
 (provide 'goe-doc)

@@ -15,8 +15,6 @@ minor mode easing golang editing
 | ]       | goe-forward                                | move forward list or up list                                           |
 | {       | goe-lbrace                                 | insert indented brace pair                                             |
 | }       | goe-rbrace                                 | insert square brackets                                                 |
-| N       | goe-special-N                              | move forward list if at special point                                  |
-| P       | goe-special-P                              | move backward list if at special point                                 |
 | d       | goe-special-d                              | goto different side of current balanced expression if at special point |
 | <space> | goe-space                                  | make <space> better                                                    |
 | "       | goe-quote                                  | make <"> better                                                        |

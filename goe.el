@@ -70,8 +70,6 @@ _I_: add imports
   (define-key map (kbd "]") 'goe-forward)
   (define-key map (kbd "{") 'goe-lbrace)
   (define-key map (kbd "}") 'goe-rbrace)
-  (define-key map (kbd "N") 'goe-special-N)
-  (define-key map (kbd "P") 'goe-special-P)
   (define-key map (kbd "d") 'goe-special-d)
   (define-key map (kbd "<SPC>") 'goe-space)
   (define-key map (kbd "\"") 'goe-quote)

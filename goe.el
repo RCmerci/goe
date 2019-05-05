@@ -58,7 +58,9 @@ _I_: add imports
   ("i" go-goto-imports)
   ("m" go-goto-method-receiver)
   ("S" goe-sort-and-remove-unused-imports)
-  ("I" goe-add-imports))
+  ("I" goe-add-imports)
+  (";" #'self-insert-command)
+  )
 
 (let ((map goe-mode-map))
   (define-key map (kbd "C-1") 'goe-describe-current-symbol)

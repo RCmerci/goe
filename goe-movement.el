@@ -228,10 +228,14 @@ don't indent them."
 (defun goe-delete-backward ()
   "Right after \" or ), delete whole sexp."
   (interactive)
-  (if (looking-back "[)\"`]")
-      (progn
-	(forward-sexp -1)
-	(kill-sexp))
-    (delete-char -1)))
+  (cond ((looking-back ")")
+	 (forward-sexp -1)
+	 (kill-sexp))
+	((and (looking-back "[\"`]")
+	      (not (goe--in-string-p)))
+	 (forward-sexp -1)
+	 (kill-sexp))
+	(t
+	 (delete-char -1))))
 
 (provide 'goe-movement)

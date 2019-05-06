@@ -4,7 +4,7 @@
 
 ;; Author: rcmerci <rcmerci@gmail.com>
 ;; Keywords: languages
-;; Package-Requires: ((lsp-mode "6.0") (go-mode "20180327.830") (hydra "0.14.0"))
+;; Package-Requires: ((lsp-mode "6.0") (go-mode "20180327.830") (hydra "0.14.0") (paredit "20171127.205"))
 ;; Version: 0.1
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -29,6 +29,7 @@
 (require 'goe-doc)
 (require 'goe-movement)
 (require 'goe-imports)
+(require 'paredit)
 
 (defvar goe-mode-map (make-sparse-keymap))
 
@@ -62,6 +63,18 @@ _I_: add imports
   (";" #'self-insert-command)
   )
 
+(defhydra goe--barf-sexp ()
+  "barf sexp"
+  ("<" paredit-forward-barf-sexp)
+  (">" paredit-forward-slurp-sexp)
+  ("<RET>" (insert "<")))
+
+(defhydra goe--slurp-sexp ()
+  "slurp sexp"
+  ("<" paredit-forward-barf-sexp)
+  (">" paredit-forward-slurp-sexp)
+  ("<RET>" (insert ">")))
+
 (let ((map goe-mode-map))
   (define-key map (kbd "C-1") 'goe-describe-current-symbol)
   (define-key map (kbd "C-2") (lambda () (interactive) (goe-describe-current-func t)))
@@ -80,8 +93,8 @@ _I_: add imports
   (define-key map (kbd "DEL") 'goe-delete-backward)
   ;; goto specific points
   (define-key map (kbd ";") 'goe--leader-map/body)
-
-  )
+  (define-key map (kbd "<") 'goe--barf-sexp/body)
+  (define-key map (kbd ">") 'goe--slurp-sexp/body))
 
 
 (provide 'goe)

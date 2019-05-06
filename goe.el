@@ -63,17 +63,12 @@ _I_: add imports
   (";" #'self-insert-command)
   )
 
-(defhydra goe--barf-sexp ()
-  "barf sexp"
-  ("<" paredit-forward-barf-sexp)
-  (">" paredit-forward-slurp-sexp)
-  ("<RET>" (insert "<")))
 
-(defhydra goe--slurp-sexp ()
-  "slurp sexp"
-  ("<" paredit-forward-barf-sexp)
-  (">" paredit-forward-slurp-sexp)
-  ("<RET>" (insert ">")))
+(defhydra goe--sexp-op ()
+  "barf or slurp sexp"
+  ("," paredit-forward-barf-sexp)
+  ("." paredit-forward-slurp-sexp)
+  (">" (insert ">") :exit t))
 
 (let ((map goe-mode-map))
   (define-key map (kbd "C-1") 'goe-describe-current-symbol)
@@ -93,8 +88,7 @@ _I_: add imports
   (define-key map (kbd "DEL") 'goe-delete-backward)
   ;; goto specific points
   (define-key map (kbd ";") 'goe--leader-map/body)
-  (define-key map (kbd "<") 'goe--barf-sexp/body)
-  (define-key map (kbd ">") 'goe--slurp-sexp/body))
+  (define-key map (kbd ">") 'goe--sexp-op/body))
 
 
 (provide 'goe)

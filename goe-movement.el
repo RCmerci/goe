@@ -195,8 +195,8 @@ don't indent them."
 		      (buffer-string)))
 	    (indent-region-line-by-line beg (point))
 	    (search-backward "\n"))
-	(insert "{  }")
-	(backward-char 2)))))
+	(insert "{}")
+	(backward-char 1)))))
 
 (defun goe-rbrace ()
   "Insert square brackets."

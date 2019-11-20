@@ -112,11 +112,6 @@ run BODY, else just run `self-insert-command'."
 		,@body)
 	    (self-insert-command 1))))
 
-(goe--defun-special goe-special-d ()
-		    "When at special point, goto different side of current point.
-Otherwise, just insert char 'd'"
-		    (goe-different-side))
-
 (goe--defun-special goe-special-N ()
 		    "When at special point, move forward list.
 Otherwise, just insert char 'N'"

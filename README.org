@@ -3,37 +3,37 @@ minor mode easing golang editing
 
 ** Intro
 *** Bindings
-| binding | command                                    | description                                                            |
-|---------+--------------------------------------------+------------------------------------------------------------------------|
-| C-1     | goe-describe-current-symbol                | Show doc for current symbol                                            |
-| C-2     | goe-describe-current-func (only type info) | Show type info for current function                                    |
-| C-3     | goe-describe-current-func                  | Show doc for current function                                          |
-|---------+--------------------------------------------+------------------------------------------------------------------------|
-|         | _Movement Bindings_                        |                                                                        |
-|---------+--------------------------------------------+------------------------------------------------------------------------|
-| [       | goe-backward                               | move backward list or up list                                          |
-| ]       | goe-forward                                | move forward list or up list                                           |
-| {       | goe-lbrace                                 | insert indented brace pair                                             |
-| }       | goe-rbrace                                 | insert square brackets                                                 |
-| d       | goe-special-d                              | goto different side of current balanced expression if at special point |
-| <space> | goe-space                                  | make <space> better                                                    |
-| "       | goe-quote                                  | make <"> better                                                        |
-| (       | goe-lparenthesis                           | make <(> better                                                        |
-| )       | goe-rparenthesis                           |                                                                        |
-| DEL     | goe-delete-backward                        | delete whole sexp when after [")`]                                     |
-|---------+--------------------------------------------+------------------------------------------------------------------------|
-|         | _Goto Map_                                 |                                                                        |
-|---------+--------------------------------------------+------------------------------------------------------------------------|
-| ; f     | go-goto-function-name                      | goto current function name                                             |
-| ; r     | go-goto-return-values                      | goto current function's return values                                  |
-| ; a     | go-goto-arguments                          | goto current function's arguments                                      |
-| ; d     | go-goto-docstring                          | goto current function's docstring                                      |
-| ; i     | go-goto-imports                            | goto imports                                                           |
-| ; m     | go-goto-method-receiver                    | goto current method's receiver                                         |
-|---------+--------------------------------------------+------------------------------------------------------------------------|
-| ; S     | goe-sort-and-remove-unused-imports         | remove unused imports & sort imports                                   |
-| ; I     | goe-add-imports                            | add imports , this command cache package list                          |
-| C-u ; I | goe-add-imports                            | same as `; I` but resync package list                                  |
+| binding | command                                    | description                                   |
+|---------+--------------------------------------------+-----------------------------------------------|
+| C-1     | goe-describe-current-symbol                | Show doc for current symbol                   |
+| C-2     | goe-describe-current-func (only type info) | Show type info for current function           |
+| C-3     | goe-describe-current-func                  | Show doc for current function                 |
+|---------+--------------------------------------------+-----------------------------------------------|
+|         | _Movement Bindings_                        |                                               |
+|---------+--------------------------------------------+-----------------------------------------------|
+| [       | goe-backward                               | move backward list or up list                 |
+| ]       | goe-forward                                | move forward list or up list                  |
+| {       | goe-lbrace                                 | insert indented brace pair                    |
+| }       | goe-rbrace                                 | insert square brackets                        |
+| <space> | goe-space                                  | make <space> better                           |
+| "       | goe-quote                                  | make <"> better                               |
+| (       | goe-lparenthesis                           | make <(> better                               |
+| )       | goe-rparenthesis                           |                                               |
+| DEL     | goe-delete-backward                        | delete whole sexp when after [")`]            |
+| >       | goe--sexp-op/body                          | barf or slurp sexp                            |
+|---------+--------------------------------------------+-----------------------------------------------|
+|         | _Goto Map_                                 |                                               |
+|---------+--------------------------------------------+-----------------------------------------------|
+| ; f     | go-goto-function-name                      | goto current function name                    |
+| ; r     | go-goto-return-values                      | goto current function's return values         |
+| ; a     | go-goto-arguments                          | goto current function's arguments             |
+| ; d     | go-goto-docstring                          | goto current function's docstring             |
+| ; i     | go-goto-imports                            | goto imports                                  |
+| ; m     | go-goto-method-receiver                    | goto current method's receiver                |
+|---------+--------------------------------------------+-----------------------------------------------|
+| ; S     | goe-sort-and-remove-unused-imports         | remove unused imports & sort imports          |
+| ; I     | goe-add-imports                            | add imports , this command cache package list |
+| C-u ; I | goe-add-imports                            | same as `; I` but resync package list         |
 
 ** Install
 *** via el-get

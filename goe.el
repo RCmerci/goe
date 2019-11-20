@@ -80,7 +80,6 @@ _I_: add imports
   (define-key map (kbd "]") 'goe-forward)
   (define-key map (kbd "{") 'goe-lbrace)
   (define-key map (kbd "}") 'goe-rbrace)
-  (define-key map (kbd "d") 'goe-special-d)
   (define-key map (kbd "<SPC>") 'goe-space)
   (define-key map (kbd "\"") 'goe-quote)
   (define-key map (kbd "(") 'goe-lparenthesis)
